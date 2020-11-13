@@ -43,27 +43,27 @@ public class Xifrar {
         return sKey;
     }
 
-    byte[] encryptData(byte[] data, PublicKey pub) {
+    public byte[] encryptData(SecretKey sKey, byte[] data) {
         byte[] encryptedData = null;
         try {
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
-            cipher.init(Cipher.ENCRYPT_MODE, pub);
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, sKey);
             encryptedData =  cipher.doFinal(data);
         } catch (Exception  ex) {
-            System.err.println("Error xifrant: " + ex);
+            System.err.println("Error xifrant les dades: " + ex);
         }
         return encryptedData;
     }
 
-    byte[] decryptData(byte[] data, PrivateKey pub) {
-        byte[] decryptedData = null;
+    public byte[] decryptData(SecretKey sKey, byte[] data) {
+        byte[] encryptedData = null;
         try {
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
-            cipher.init(Cipher.DECRYPT_MODE, pub);
-            decryptedData =  cipher.doFinal(data);
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, sKey);
+            encryptedData =  cipher.doFinal(data);
         } catch (Exception  ex) {
-            System.err.println("Error xifrant: " + ex);
+            System.err.println("Error xifrant les dades: " + ex);
         }
-        return decryptedData;
+        return encryptedData;
     }
 }

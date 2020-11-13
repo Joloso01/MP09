@@ -2,10 +2,7 @@ package UF1;
 
 import javax.crypto.SecretKey;
 import javax.security.auth.kerberos.EncryptionKey;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,29 +14,16 @@ public class A4Main {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         Xifrar xifrar = new Xifrar();
-        File file = new File("/home/dam2a/Escriptori/clausA4.txt");
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String linea=bufferedReader.readLine();
-        Path pathLinea = Paths.get(linea);
-        byte[] lineaEnBytes = Files.readAllBytes(pathLinea);
-        Path path = Paths.get("/home/dam2a/Escriptori/textamagat");
-        byte[] textoenbytes = Files.readAllBytes(path);
-        String textoCifrado=new String(textoenbytes);
-
-
-        while (linea != null){
-            if (linea.equals("")){
-                linea=bufferedReader.readLine();
-            }else {
-                System.out.println("lectura: "+linea);
-                linea=bufferedReader.readLine();
-
-            }
-        }
-
-
-
+        SecretKey clave = xifrar.keygenKeyGeneration(128);
+        Path path = Paths.get("/home/dam2a/Escriptori/EjemploA4.txt");
+        byte[] textoEnBytes = Files.readAllBytes(path);
+        byte[] textoCifrado = xifrar.encryptData(clave,textoEnBytes);
+        System.out.println("Texto Cifrado");
+        System.out.println(new String(textoCifrado, "UTF8"));
+        System.out.println();
+        System.out.println("Texto Descifrado");
+        byte[] textoDescifrado = xifrar.decryptData(clave,textoCifrado);
+        System.out.println(new String(textoDescifrado, "UTF8"));
 
     }
 }

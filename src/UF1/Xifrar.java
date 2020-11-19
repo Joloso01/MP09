@@ -4,6 +4,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -31,7 +32,7 @@ public class Xifrar {
         SecretKey sKey = null;
         if ((keySize == 128)||(keySize == 192)||(keySize == 256)) {
             try {
-                byte[] data = text.getBytes("UTF-8");
+                byte[] data = text.getBytes(StandardCharsets.UTF_8);
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
                 byte[] hash = md.digest(data);
                 byte[] key = Arrays.copyOf(hash, keySize/8);
@@ -56,14 +57,14 @@ public class Xifrar {
     }
 
     public byte[] decryptData(SecretKey sKey, byte[] data) {
-        byte[] encryptedData = null;
+        byte[] decryptedData = null;
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, sKey);
-            encryptedData =  cipher.doFinal(data);
+            decryptedData =  cipher.doFinal(data);
         } catch (Exception  ex) {
             System.err.println("Error xifrant les dades: " + ex);
         }
-        return encryptedData;
+        return decryptedData;
     }
 }

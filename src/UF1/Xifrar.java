@@ -2,6 +2,8 @@ package UF1;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
+import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Arrays;
@@ -63,6 +65,8 @@ public class Xifrar {
         return decryptedData;
     }
 
+    //Metodos A5._________________________________________________
+
     public static KeyPair randomGenerate(int len) {
         KeyPair keys = null;
         try {
@@ -73,5 +77,39 @@ public class Xifrar {
             System.err.println("Generador no disponible.");
         }
         return keys;
+    }
+
+    public static byte[] encryptData(byte[] data, PublicKey pub) {
+        byte[] encryptedData = null;
+        try {
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
+            cipher.init(Cipher.ENCRYPT_MODE, pub);
+            encryptedData =  cipher.doFinal(data);
+        } catch (Exception  ex) {
+            System.err.println("Error xifrant: " + ex);
+        }
+        return encryptedData;
+    }
+
+    public static byte[] decryptData(byte[] data, PrivateKey priv) {
+        byte[] decryptedData = null;
+        try {
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
+            cipher.init(Cipher.DECRYPT_MODE, priv);
+            decryptedData =  cipher.doFinal(data);
+        } catch (Exception  ex) {
+            System.err.println("Error xifrant: " + ex);
+        }
+        return decryptedData;
+    }
+
+    public static KeyStore loadKeyStore(String ksFile, String ksPwd) throws Exception {
+        KeyStore ks = KeyStore.getInstance("JCEKS");
+        File f = new File(ksFile);
+        if (f.isFile()) {
+            FileInputStream in = new FileInputStream(f);
+            ks.load(in, ksPwd.toCharArray());
+        }
+        return ks;
     }
 }

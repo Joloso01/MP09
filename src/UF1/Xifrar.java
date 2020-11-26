@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Xifrar {
 
-    SecretKey keygenKeyGeneration(int keySize) {
+   public static SecretKey keygenKeyGeneration(int keySize) {
         SecretKey sKey = null;
         if ((keySize == 128)||(keySize == 192)||(keySize == 256)) {
             try {
@@ -23,7 +23,7 @@ public class Xifrar {
         return sKey;
     }
 
-    SecretKey passwordKeyGeneration(String text, int keySize) {
+    public static  SecretKey passwordKeyGeneration(String text, int keySize) {
         SecretKey sKey = null;
         if ((keySize == 128)||(keySize == 192)||(keySize == 256)) {
             try {
@@ -39,7 +39,7 @@ public class Xifrar {
         return sKey;
     }
 
-    public byte[] encryptData(SecretKey sKey, byte[] data) {
+    public static byte[] encryptData(SecretKey sKey, byte[] data) {
         byte[] encryptedData = null;
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -51,7 +51,7 @@ public class Xifrar {
         return encryptedData;
     }
 
-    public byte[] decryptData(SecretKey sKey, byte[] data) {
+    public static  byte[] decryptData(SecretKey sKey, byte[] data) {
         byte[] decryptedData = null;
         try {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -61,5 +61,17 @@ public class Xifrar {
             System.out.println("Error desxifrant les dades: " + ex);
         }
         return decryptedData;
+    }
+
+    public static KeyPair randomGenerate(int len) {
+        KeyPair keys = null;
+        try {
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            keyGen.initialize(len);
+            keys = keyGen.genKeyPair();
+        } catch (Exception ex) {
+            System.err.println("Generador no disponible.");
+        }
+        return keys;
     }
 }

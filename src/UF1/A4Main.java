@@ -13,39 +13,38 @@ import java.nio.file.Paths;
 public class A4Main {
 
     public static void main(String[] args) throws IOException {
-        Xifrar xifrar = new Xifrar();
 
         //1.5.________________________________________________
         System.out.println("1.5___________________________________________________");
-        SecretKey clave15 = xifrar.keygenKeyGeneration(128);
+        SecretKey clave15 = Xifrar.keygenKeyGeneration(128);
         String texto15 = "Texto de prueba Jose";
         byte[] textoEnBytes15 = texto15.getBytes(StandardCharsets.UTF_8);
-        byte[] textoCifrado15 = xifrar.encryptData(clave15,textoEnBytes15);
+        byte[] textoCifrado15 = Xifrar.encryptData(clave15,textoEnBytes15);
         System.out.println("Texto Cifrado");
         System.out.println(new String(textoCifrado15, StandardCharsets.UTF_8));
         System.out.println();
         System.out.println("Texto Descifrado");
-        byte[] textoDescifrado15 = xifrar.decryptData(clave15,textoCifrado15);
+        byte[] textoDescifrado15 = Xifrar.decryptData(clave15,textoCifrado15);
         System.out.println(new String(textoDescifrado15, StandardCharsets.UTF_8));
         System.out.println();
 
         //1.6.__________________________________________________
         System.out.println("1.6___________________________________________________");
-        SecretKey clave16 = xifrar.passwordKeyGeneration("EjemploJose",128);
+        SecretKey clave16 = Xifrar.passwordKeyGeneration("EjemploJose",128);
         String texto16 = "Texto de prueba Jose";
         byte[] textoEnBytes16 = texto16.getBytes(StandardCharsets.UTF_8);
-        byte[] textoCifrado16 = xifrar.encryptData(clave16,textoEnBytes16);
+        byte[] textoCifrado16 = Xifrar.encryptData(clave16,textoEnBytes16);
         System.out.println("Texto Cifrado");
         System.out.println(new String(textoCifrado16, StandardCharsets.UTF_8));
         System.out.println();
         System.out.println("Texto Descifrado");
-        byte[] textoDescifrado16 = xifrar.decryptData(clave16,textoCifrado16);
+        byte[] textoDescifrado16 = Xifrar.decryptData(clave16,textoCifrado16);
         System.out.println(new String(textoDescifrado16, StandardCharsets.UTF_8));
         System.out.println();
 
         //1.7___________________________________________________
         System.out.println("1.7___________________________________________________");
-        SecretKey clave17=xifrar.keygenKeyGeneration(128);
+        SecretKey clave17= Xifrar.keygenKeyGeneration(128);
         System.out.println(clave17.toString());
         System.out.println(clave17.getFormat());
         System.out.println(clave17.getEncoded());
@@ -53,10 +52,10 @@ public class A4Main {
 
         //1.8.__________________________________________________
         System.out.println("1.8___________________________________________________");
-        SecretKey clave181 = xifrar.passwordKeyGeneration("EjemploJosese",128);
+        SecretKey clave181 = Xifrar.passwordKeyGeneration("EjemploJosese",128);
         try {
             System.out.println("Texto Descifrado");
-            byte[] textoDescifrado18 = xifrar.decryptData(clave181,textoCifrado16);
+            byte[] textoDescifrado18 = Xifrar.decryptData(clave181,textoCifrado16);
             System.out.println(new String(textoDescifrado18, StandardCharsets.UTF_8));
         } catch (Exception e) {
             System.out.println("Contraseña incorrecta");
@@ -74,8 +73,8 @@ public class A4Main {
         byte[] textoEnBytes = Files.readAllBytes(path);
         while (linea != null){
                 try {
-                    SecretKey clave = xifrar.passwordKeyGeneration(linea,128);
-                    byte[] textoDescifrado = xifrar.decryptData(clave,textoEnBytes);
+                    SecretKey clave = Xifrar.passwordKeyGeneration(linea,128);
+                    byte[] textoDescifrado = Xifrar.decryptData(clave,textoEnBytes);
                     System.out.println(new String(textoDescifrado, StandardCharsets.UTF_8));
                     break;
                 } catch (Exception e) {

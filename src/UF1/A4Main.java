@@ -53,17 +53,10 @@ public class A4Main {
 
         //1.8.__________________________________________________
         System.out.println("1.8___________________________________________________");
-        SecretKey clave18 = xifrar.passwordKeyGeneration("EjemploJose",128);
         SecretKey clave181 = xifrar.passwordKeyGeneration("EjemploJosese",128);
-        String texto18 = "Texto de prueba Jose";
-        byte[] textoEnBytes18 = texto18.getBytes("UTF8");
-        byte[] textoCifrado18 = xifrar.encryptData(clave18,textoEnBytes18);
         try {
-            System.out.println("Texto Cifrado");
-            System.out.println(new String(textoCifrado18,"UTF8"));
-            System.out.println();
             System.out.println("Texto Descifrado");
-            byte[] textoDescifrado18 = xifrar.decryptData(clave181,textoCifrado18);
+            byte[] textoDescifrado18 = xifrar.decryptData(clave181,textoCifrado16);
             System.out.println(new String(textoDescifrado18,"UTF8"));
         } catch (Exception e) {
             System.out.println("Contraseña incorrecta");

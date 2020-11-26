@@ -59,8 +59,6 @@ public class Xifrar {
             decryptedData =  cipher.doFinal(data);
         }catch (IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException | NoSuchPaddingException ex){
             System.out.println("Error desxifrant les dades: " + ex);
-        } catch (Exception  ex) {
-            System.err.println("Error desxifrant les dades: " + ex);
         }
         return decryptedData;
     }

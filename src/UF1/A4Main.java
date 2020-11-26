@@ -27,6 +27,7 @@ public class A4Main {
         System.out.println("Texto Descifrado");
         byte[] textoDescifrado15 = xifrar.decryptData(clave15,textoCifrado15);
         System.out.println(new String(textoDescifrado15,"UTF8"));
+        System.out.println();
 
         //1.6.__________________________________________________
         System.out.println("1.6___________________________________________________");

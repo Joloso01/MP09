@@ -19,28 +19,28 @@ public class A4Main {
         System.out.println("1.5___________________________________________________");
         SecretKey clave15 = xifrar.keygenKeyGeneration(128);
         String texto15 = "Texto de prueba Jose";
-        byte[] textoEnBytes15 = texto15.getBytes("UTF8");
+        byte[] textoEnBytes15 = texto15.getBytes(StandardCharsets.UTF_8);
         byte[] textoCifrado15 = xifrar.encryptData(clave15,textoEnBytes15);
         System.out.println("Texto Cifrado");
-        System.out.println(new String(textoCifrado15,"UTF8"));
+        System.out.println(new String(textoCifrado15, StandardCharsets.UTF_8));
         System.out.println();
         System.out.println("Texto Descifrado");
         byte[] textoDescifrado15 = xifrar.decryptData(clave15,textoCifrado15);
-        System.out.println(new String(textoDescifrado15,"UTF8"));
+        System.out.println(new String(textoDescifrado15, StandardCharsets.UTF_8));
         System.out.println();
 
         //1.6.__________________________________________________
         System.out.println("1.6___________________________________________________");
         SecretKey clave16 = xifrar.passwordKeyGeneration("EjemploJose",128);
         String texto16 = "Texto de prueba Jose";
-        byte[] textoEnBytes16 = texto16.getBytes("UTF8");
+        byte[] textoEnBytes16 = texto16.getBytes(StandardCharsets.UTF_8);
         byte[] textoCifrado16 = xifrar.encryptData(clave16,textoEnBytes16);
         System.out.println("Texto Cifrado");
-        System.out.println(new String(textoCifrado16,"UTF8"));
+        System.out.println(new String(textoCifrado16, StandardCharsets.UTF_8));
         System.out.println();
         System.out.println("Texto Descifrado");
         byte[] textoDescifrado16 = xifrar.decryptData(clave16,textoCifrado16);
-        System.out.println(new String(textoDescifrado16,"UTF8"));
+        System.out.println(new String(textoDescifrado16, StandardCharsets.UTF_8));
         System.out.println();
 
         //1.7___________________________________________________
@@ -57,7 +57,7 @@ public class A4Main {
         try {
             System.out.println("Texto Descifrado");
             byte[] textoDescifrado18 = xifrar.decryptData(clave181,textoCifrado16);
-            System.out.println(new String(textoDescifrado18,"UTF8"));
+            System.out.println(new String(textoDescifrado18, StandardCharsets.UTF_8));
         } catch (Exception e) {
             System.out.println("Contraseña incorrecta");
         }

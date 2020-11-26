@@ -1,26 +1,81 @@
 package UF1;
 
 import javax.crypto.SecretKey;
-import javax.security.auth.kerberos.EncryptionKey;
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 
 public class A4Main {
 
     public static void main(String[] args) throws IOException {
         Xifrar xifrar = new Xifrar();
-        File file = new File("C:/Users/Jose/Desktop/clausA4.txt");
+
+        //1.5.________________________________________________
+        System.out.println("1.5___________________________________________________");
+        SecretKey clave15 = xifrar.keygenKeyGeneration(128);
+        String texto15 = "Texto de prueba Jose";
+        byte[] textoEnBytes15 = texto15.getBytes("UTF8");
+        byte[] textoCifrado15 = xifrar.encryptData(clave15,textoEnBytes15);
+        System.out.println("Texto Cifrado");
+        System.out.println(new String(textoCifrado15,"UTF8"));
+        System.out.println();
+        System.out.println("Texto Descifrado");
+        byte[] textoDescifrado15 = xifrar.decryptData(clave15,textoCifrado15);
+        System.out.println(new String(textoDescifrado15,"UTF8"));
+
+        //1.6.__________________________________________________
+        System.out.println("1.6___________________________________________________");
+        SecretKey clave16 = xifrar.passwordKeyGeneration("EjemploJose",128);
+        String texto16 = "Texto de prueba Jose";
+        byte[] textoEnBytes16 = texto16.getBytes("UTF8");
+        byte[] textoCifrado16 = xifrar.encryptData(clave16,textoEnBytes16);
+        System.out.println("Texto Cifrado");
+        System.out.println(new String(textoCifrado16,"UTF8"));
+        System.out.println();
+        System.out.println("Texto Descifrado");
+        byte[] textoDescifrado16 = xifrar.decryptData(clave16,textoCifrado16);
+        System.out.println(new String(textoDescifrado16,"UTF8"));
+        System.out.println();
+
+        //1.7___________________________________________________
+        System.out.println("1.7___________________________________________________");
+        SecretKey clave17=xifrar.keygenKeyGeneration(128);
+        System.out.println(clave17.toString());
+        System.out.println(clave17.getFormat());
+        System.out.println(clave17.getEncoded());
+        System.out.println(clave17.getAlgorithm());
+
+        //1.8.__________________________________________________
+        System.out.println("1.8___________________________________________________");
+        SecretKey clave18 = xifrar.passwordKeyGeneration("EjemploJose",128);
+        SecretKey clave181 = xifrar.passwordKeyGeneration("EjemploJosese",128);
+        String texto18 = "Texto de prueba Jose";
+        byte[] textoEnBytes18 = texto18.getBytes("UTF8");
+        byte[] textoCifrado18 = xifrar.encryptData(clave18,textoEnBytes18);
+        try {
+            System.out.println("Texto Cifrado");
+            System.out.println(new String(textoCifrado18,"UTF8"));
+            System.out.println();
+            System.out.println("Texto Descifrado");
+            byte[] textoDescifrado18 = xifrar.decryptData(clave181,textoCifrado18);
+            System.out.println(new String(textoDescifrado18,"UTF8"));
+        } catch (Exception e) {
+            System.out.println("Contraseña incorrecta");
+        }
+        System.out.println();
+
+        //2._______________________________________________________
+        System.out.println("2.___________________________________________________");
+        String home = System.getProperty("user.home");
+        File file = new File(home+"/"+"clausA4.txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
         String linea = br.readLine();
-        Path path = Paths.get("C:/Users/Jose/Desktop/textamagat");
+        Path path = Paths.get(home + "/"+"textamagat");
         byte[] textoEnBytes = Files.readAllBytes(path);
         while (linea != null){
             try {

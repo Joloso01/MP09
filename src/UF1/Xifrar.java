@@ -1,14 +1,9 @@
 package UF1;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 import java.util.Arrays;
 
 public class Xifrar {
@@ -62,8 +57,10 @@ public class Xifrar {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, sKey);
             decryptedData =  cipher.doFinal(data);
+        }catch (IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException | NoSuchPaddingException ex){
+            System.out.println("Error desxifrant les dades: " + ex);
         } catch (Exception  ex) {
-            System.err.println("Error xifrant les dades: " + ex);
+            System.err.println("Error desxifrant les dades: " + ex);
         }
         return decryptedData;
     }

@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -78,17 +79,16 @@ public class A4Main {
         Path path = Paths.get(home + "/"+"textamagat");
         byte[] textoEnBytes = Files.readAllBytes(path);
         while (linea != null){
-            try {
-                SecretKey clave = xifrar.passwordKeyGeneration(linea,256);
-                byte[] textoDescifrado = xifrar.decryptData(clave,textoEnBytes);
-                System.out.println(new String(textoDescifrado, "UTF8"));
-                break;
-            } catch (Exception e) {
-                System.out.println("La contraseña no es: "+ linea);
-                linea= br.readLine();
-            }
+                try {
+                    SecretKey clave = xifrar.passwordKeyGeneration(linea,128);
+                    byte[] textoDescifrado = xifrar.decryptData(clave,textoEnBytes);
+                    System.out.println(new String(textoDescifrado, StandardCharsets.UTF_8));
+                    break;
+                } catch (Exception e) {
+                    System.out.println("La contraseña no es: "+ linea);
+                    linea= br.readLine();
+                }
         }
-
         System.out.println("La contraseña es: "+ linea);
     }
 }

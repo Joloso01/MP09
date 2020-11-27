@@ -1,5 +1,7 @@
 package UF1;
 
+import javax.crypto.SecretKey;
+import java.io.FileOutputStream;
 import java.security.*;
 import java.util.Enumeration;
 import java.util.List;
@@ -26,7 +28,8 @@ public class A5 {
         System.out.println(clave.getPrivate().toString());
         System.out.println();
 
-        //1.2
+        //1.2____________________________________________________________
+        System.out.println("1.2________________________________________________________");
         String home = System.getProperty("user.home");
         KeyStore keyStoreCargado = null;
 
@@ -36,13 +39,18 @@ public class A5 {
             System.out.println("Error al cargar el Keystore");
         }
 
+        //2.1.1_____________________________________________
         keyStoreCargado.getType();
+
+        //2.1.2_____________________________________________
         int keystoreSize = 0;
         try {
             keystoreSize = keyStoreCargado.size();
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
+
+        //2.1.3_____________________________________________
         Enumeration<String> listAlias = null;
         try {
             listAlias = keyStoreCargado.aliases();
@@ -51,6 +59,7 @@ public class A5 {
         }
         System.out.println(listAlias);
 
+        //2.1.4_____________________________________________
         for (int i = 0; i < keystoreSize; i++) {
             try {
                 keyStoreCargado.getCertificate(String.valueOf(listAlias));
@@ -58,6 +67,8 @@ public class A5 {
                 e.printStackTrace();
             }
         }
+
+        //2.1.5_____________________________________________
         char[] passwdEnChar = keystorePW.toCharArray();
         for (int i = 0; i < keystoreSize; i++) {
             try {
@@ -72,6 +83,16 @@ public class A5 {
         }
 
 
-
+        //2.2_________________________________________________
+        SecretKey claveSimetrica = Xifrar.keygenKeyGeneration(256);
+        KeyStore.ProtectionParameter protParam = new KeyStore.PasswordProtection(passwdEnChar);
+        try {
+         keyStoreCargado.setEntry("prueba1", (KeyStore.Entry) claveSimetrica,protParam);
+            FileOutputStream fos = new FileOutputStream(home+"/Keystore.ks");
+            keyStoreCargado.store(fos,passwdEnChar);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

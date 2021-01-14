@@ -73,7 +73,7 @@ public class A4Main {
         byte[] textoEnBytes = Files.readAllBytes(path);
         while (linea != null){
                 try {
-                    SecretKey clave = Xifrar.passwordKeyGeneration(linea,128);
+                    SecretKey clave = Xifrar.passwordKeyGeneration(linea,256);
                     byte[] textoDescifrado = Xifrar.decryptData(clave,textoEnBytes);
                     System.out.println(new String(textoDescifrado, StandardCharsets.UTF_8));
                     break;

@@ -17,7 +17,7 @@ public class Cargol {
     }
 
     public void setMetros(int metros) {
-        this.metros = metros;
+        this.metros += metros;
     }
 
     public String getNom() {

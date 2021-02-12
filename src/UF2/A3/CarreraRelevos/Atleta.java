@@ -3,6 +3,7 @@ package UF2.A3.CarreraRelevos;
 public class Atleta extends Thread {
     Testigo t;
     private int Dorsal;
+    boolean haCorrido=false;
 
     public Atleta(String nombre, Testigo t) {
         super(nombre);
@@ -14,15 +15,22 @@ public class Atleta extends Thread {
     @Override
     public void run() {
         super.run();
-        t.CojerTestigo();
-        System.out.println("El corredor "+getName()+" ha cogido el testigo.");
-        try {
-            Thread.sleep((long) (Math.random()*1000)+1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if(haCorrido == false){
+            t.CojerTestigo();
+            System.out.println("El corredor "+getName()+" ha cogido el testigo.");
+            try {
+                Thread.sleep((long) (Math.random()*1000)+1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            t.dejarTestigo();
+            System.out.println("El corredor "+getName()+" ha dejado el testigo.");
+            haCorrido=true;
+            t.tiempoFinal();
+        }else {
+
         }
 
-        t.dejarTestigo();
-        System.out.println("El corredor "+getName()+" ha dejado el testigo.");
     }
 }

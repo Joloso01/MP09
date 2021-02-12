@@ -4,6 +4,7 @@ public class Testigo {
     private String nombre;
     double tiempo;
     boolean libre;
+    int corredores=0;
 
     public Testigo(String nombre) {
         this.nombre = nombre;
@@ -23,9 +24,19 @@ public class Testigo {
 
     public synchronized void dejarTestigo() {
         tiempo += Math.random()*10+1;
-        System.out.println("El equipo "+nombre+" lleva: " +tiempo+" segundos. ");
         libre = true;
+        corredores++;
         notifyAll();
     }
 
+    public synchronized void tiempoFinal(){
+        if (corredores == 4){
+            System.out.println("El equipo "+getNombre()+" ha finalizado la carrera con un tiempo de: "+tiempo+" segundos.");
+
+        }
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

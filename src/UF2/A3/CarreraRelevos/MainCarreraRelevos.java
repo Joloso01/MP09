@@ -1,6 +1,6 @@
 package UF2.A3.CarreraRelevos;
 
-public class Main {
+public class MainCarreraRelevos {
     public static void main(String[] args) {
 
         Testigo equipo1 = new Testigo("equipo1");
